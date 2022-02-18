@@ -1,3 +1,9 @@
+import numpy as np
+from icecream import ic
+import math
+import random
+from matplotlib import pyplot as plt
+
 locations = {
     '甘肃': [103.73, 36.03],
     '青海': [101.74, 36.56],
@@ -34,3 +40,62 @@ locations = {
     '香港': [114.17, 22.28],
     '澳门': [113.54, 22.19]
 }
+
+
+def geo_distance(source, destination):
+    lon1, lat1 = source
+    lon2, lat2 = destination
+    radius = 6371  # km
+
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+
+    a = (math.sin(dlat / 2) * math.sin(dlat / 2) +
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
+         math.sin(dlon / 2) * math.sin(dlon / 2))
+
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    d = radius * c
+    return d
+
+
+def generate_random_center(x, y):
+    x = random.uniform(min(x), max(x))
+    y = random.uniform(min(y), max(y))
+    return x, y
+
+
+k = 5
+
+all_location = locations.values()
+all_x = [i[0] for i in all_location]
+all_y = [i[1] for i in all_location]
+ic(all_x, all_y)
+
+centers = np.asarray([generate_random_center(all_x, all_y) for i in range(k)])
+ic(centers)
+
+while True:
+    centers_backup = centers.copy()
+    location_list = []
+    for location in all_location:
+        location_list += [min([[np.asarray(location), index, geo_distance(location, center)]
+                               for index, center in enumerate(centers)],
+                              key=lambda a: a[2])[:2]]
+    location_list = np.asarray(location_list)
+
+    for i in range(k+1):
+        if len(location_list[location_list[:, 1] == i]) != 0:
+            centers[i] = np.mean(location_list[location_list[:, 1] == i][:, 0])
+
+    ic(centers)
+    fig = plt.figure()
+    fig, axs = plt.subplots()
+    axs.scatter(all_x, all_y)
+    axs.scatter(centers[:, 0], centers[:, 1])
+    plt.show()
+
+    if np.equal(centers_backup, centers.copy()).all():
+        break
+
+

@@ -44,7 +44,9 @@ def scatter(a, x, y, i):
 
 k = 3
 centers = generate_random_centers(data, k)
+step_counter = 0
 while True:
+    step_counter += 1
     fig, ax = plt.subplots()
     centers_backup = centers.copy()
     location_list = [[*min([(c[0], *location, calculate_distance(c[1:], location))
@@ -56,9 +58,10 @@ while True:
 
         scatter(ax, dots[:, 0], dots[:, 1], index)
         ax.scatter(*centers[index][1:], marker='s', c='black')
-        if len(centers[index]) != 0:
+        ax.set_title(f'Step: {step_counter}')
+        if len(dots) != 0:
             centers[index] = [index, *np.mean(dots, axis=0)]
+        else: print(centers)
     if np.equal(centers_backup, centers).all():
         break
-
     plt.show()

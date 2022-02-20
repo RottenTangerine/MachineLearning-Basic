@@ -57,11 +57,12 @@ while True:
         dots = location_list[location_list[:, 0] == index][:, 1:]
 
         scatter(ax, dots[:, 0], dots[:, 1], index)
-        ax.scatter(*centers[index][1:], marker='s', c='black')
+        ax.scatter(*centers[index][1:], marker='x', c='black')
         ax.set_title(f'Step: {step_counter}')
+        ax.axis('equal')
         if len(dots) != 0:
             centers[index] = [index, *np.mean(dots, axis=0)]
-        else: print(centers)
+    plt.savefig(f'{step_counter}.png')
+    plt.show()
     if np.equal(centers_backup, centers).all():
         break
-    plt.show()

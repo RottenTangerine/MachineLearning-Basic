@@ -9,11 +9,13 @@ data['Discount_rate'] = data['Discount_rate'].apply(lambda x: 1 if ':' in x else
 data['target'] = pd.to_datetime(data['Date'], format='%Y%m%d') - pd.to_datetime(data['Date_received'], format='%Y%m%d')
 
 y_data = data['target'].apply(lambda x: 1 if x <=  pd.Timedelta(15, 'D') else 0)
-x_data = data.drop(columns=['target'])
+x_data = data.drop(columns=['target', 'Date'])
+print(x_data.head())
 
 x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2)
-print(x_test.shape, x_train.shape)
-model = DecisionTreeClassifier(max_depth=5)
+model = DecisionTreeClassifier(criterion='entropy', max_depth=5)
 model.fit(x_train, y_train)
 
 print(classification_report(y_test, model.predict(x_test)))
+
+new_data = {'User_id': 114747, 'Merchant_id': 5341, 'Coupin_id':4399, 'Discount_rate':1, 'Distence': 0, 'Date_receiced': pd.Timedelta(20160521)}

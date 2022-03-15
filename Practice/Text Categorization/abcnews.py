@@ -10,7 +10,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.stem import SnowballStemmer
 
 # Read data
-data = pd.read_csv('../data/abcnews-date-text.csv')
+data = pd.read_csv('../../data/abcnews-date-text.csv')
 data.info()
 desc = data['headline_text'].head(5000).values
 ic(desc)
@@ -54,5 +54,5 @@ kmeans.fit(X)
 
 output = pd.DataFrame(desc, columns=['headline_text'])
 output['category'] = kmeans.labels_
-output.to_csv('abcnews.csv')
+# output.to_csv('abcnews.csv')
 print(output)

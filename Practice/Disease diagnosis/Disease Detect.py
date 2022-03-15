@@ -4,16 +4,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 
-data = pd.read_csv('../data/Heart Disease Dataset.csv')
+data = pd.read_csv('../../data/Heart Disease Dataset.csv')
 
-# 对不连续特征进行onehot编码
+# one-hot coding
 data = pd.get_dummies(data, columns=['sex'])
 
 y_data = data['target']
 x_data = data.drop(columns=['target'])
 
 
-# 标准化
+# standardization
 standardizer = StandardScaler()
 standardizer.fit(x_data)
 x_data = standardizer.transform(x_data)

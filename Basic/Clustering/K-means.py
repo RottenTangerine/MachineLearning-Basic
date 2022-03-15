@@ -10,18 +10,8 @@ data_0 = gen_data((-0.5, 0.5), (1, 2), data_num)
 data_1 = gen_data((-2, -1), (0, 1), data_num)
 data_2 = gen_data((1, 2), (0, 1), data_num)
 
-fig, ax = plt.subplots(1, 2)
-ax[1].scatter(data_0[:, 0], data_0[:, 1])
-ax[1].scatter(data_1[:, 0], data_1[:, 1])
-ax[1].scatter(data_2[:, 0], data_2[:, 1])
-ax[1].set_title('Goal')
-
 data = np.concatenate((data_0, data_1, data_2))
 np.random.shuffle(data)
-ax[0].scatter(data[:, 0], data[:, 1])
-ax[0].set_title('Data')
-
-plt.show()
 
 
 # K-means
@@ -62,7 +52,6 @@ while True:
         ax.axis('equal')
         if len(dots) != 0:
             centers[index] = [index, *np.mean(dots, axis=0)]
-    plt.savefig(f'{step_counter}.png')
     plt.show()
     if np.equal(centers_backup, centers).all():
         break

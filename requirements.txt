@@ -3,6 +3,7 @@ icecream
 tqdm
 matplotlib
 pandas
+torch
 torchvision
 ipython
 pillow
@@ -10,3 +11,4 @@ opencv-python
 sklearn
 scikit-learn
 nltk
+pycuda

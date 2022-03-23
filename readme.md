@@ -3,6 +3,7 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/RottenTangerine/ML?label=version)
 
 This repository records some my practice codes and notes of machine learning 
+
 Please feel free to visit and have fun :)
 
 ## Modules
@@ -40,4 +41,5 @@ Please feel free to visit and have fun :)
   - Disease diagnosis
   - Coupon usage prediction
   - CIFAR-10
+  - Emotion Detection
 - ### Toy Algorithms

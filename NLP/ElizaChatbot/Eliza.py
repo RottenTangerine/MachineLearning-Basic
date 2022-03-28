@@ -16,7 +16,6 @@ def match_rule(_sentence, _rules):
         string = split_by_rule(_sentence, _rule[0])
         case = generate_match_case(_rule[0])
         response = generate_response(_rule)
-
         script = f"""def _match(string):
             match string:
                 case {case}:
@@ -44,7 +43,7 @@ def generate_match_case(_rule):
 
 def split_by_rule(_sentence, _rule):
     key_word = [s.strip() for s in rule_pattern.sub(' ', _rule).split()]
-    return split_sentence(_sentence, key_word)
+    return split_sentence(_sentence, key_word) if key_word else [_sentence]
 
 def split_sentence(_sentence, _kw):
     pattern = re.compile(r'|'.join(_kw))
@@ -65,8 +64,8 @@ def generate_response(_rule):
 
 
 if __name__ == '__main__':
-    # while True:
-        sentence = 'I need to do some exercise'
-        # sentence = input()
-        rules = rules.pairs
-        match_rule(sentence, rules)
+    while True:
+        # sentence = 'I need to do some exercise'
+        sentence = input()
+        rule = rules.pairs
+        match_rule(sentence, rule)

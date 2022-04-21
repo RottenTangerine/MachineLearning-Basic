@@ -7,21 +7,17 @@ from torchvision import datasets, transforms
 
 import matplotlib.pyplot as plt
 
-from icecream import ic
-from tqdm import tqdm
-
 train_dataset = torchvision.datasets.CIFAR100(root='../../data', train=True, download=True, transform=transforms.ToTensor())
 test_dataset = torchvision.datasets.CIFAR100(root='../../data', train=False, download=True, transform=transforms.ToTensor())
 
-train_dataset.class_to_idx
 
 # hyper params
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # hyper parameters
-epoch_num = 5
-batch_size = 64
-learning_rate = 1e-9
+epoch_num = 50
+batch_size = 32
+learning_rate = 1e-2
 class_num = 100
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
@@ -65,23 +61,24 @@ class VGG(nn.Module):
 
 model = VGG().to(device)
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=5e-4)
 
 torch.cuda.empty_cache()
 
 for epoch in range(epoch_num):
-    for i, (pic, label) in enumerate(tqdm(train_loader, leave=False, colour='cyan', desc=f'Epoch {epoch} / {epoch_num}', unit='batches')):
-        optimizer.zero_grad()
+    for i, (pic, label) in enumerate(train_loader):
         pic = pic.to(device)
         label = label.to(device)
+
         output = model(pic)
         loss = criterion(output, label)
-        if (i + 1) % 100 == 0:
-            print(f'Epoch: {epoch},batch: {i + 1}, loss: {loss.item()}')
+
+        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-model.eval()
+        if (i + 1) % 28 == 0:
+            print(f'Epoch: {epoch},batch: {i + 1}, loss: {loss.item():.4f}, lr:{optimizer.param_groups[0]["lr"]:.6f}')
 
 with torch.no_grad():
     correct = 0

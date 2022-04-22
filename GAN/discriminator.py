@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 
 # img shape (1, 28, 28)
@@ -25,7 +26,8 @@ class Discriminator(nn.Module):
             nn.Linear(2 ** 11, 2 ** 11),
             nn.ReLU(True),
             nn.Dropout(),
-            nn.Linear(2 ** 11, 10)
+            nn.Linear(2 ** 11, 1),
+            nn.Sigmoid(),
         )
 
     def forward(self, x):
@@ -34,3 +36,13 @@ class Discriminator(nn.Module):
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         return out
+
+
+if __name__ == '__main__':
+    import torch
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    discriminator = Discriminator().to(device)
+    sample_img = torch.rand((5, 1, 28, 28)).to(device)
+    out = discriminator(sample_img)
+    print(out)

@@ -1,0 +1,7 @@
+# compressed file
+*.zip
+
+# model
+*.ckpt
+*.pt
+*.pth

@@ -14,7 +14,7 @@ from generator import Generator
 os.makedirs("images", exist_ok=True)
 img_shape = (1, 28, 28)
 # hyper params
-epoch_num = 100
+epoch_num = 50
 batch_size = 64
 learning_rate = 2e-4
 latent_dim = 2 ** 8
@@ -50,7 +50,6 @@ for epoch in range(epoch_num):
         optimizer_G.zero_grad()
 
         z = Tensor(np.random.normal(0, 1, (imgs.shape[0], latent_dim)))
-        z = z.view(z.size(0), 1, 2 ** 4, 2 ** 4)
         gen_imgs = generator(z)
 
         g_loss = criterion(discriminator(gen_imgs), valid)
@@ -74,3 +73,6 @@ for epoch in range(epoch_num):
         batches_done = epoch * len(train_loader) + i
         if batches_done % 200 == 0:
             save_image(gen_imgs.data[:25], "images/%d.png" % batches_done, nrow=5, normalize=True)
+
+torch.save(generator.state_dict(), 'generator_params.ckpt')
+torch.save(discriminator.state_dict(), 'discriminator_params.ckpt')

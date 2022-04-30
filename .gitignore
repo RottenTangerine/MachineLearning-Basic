@@ -5,3 +5,8 @@
 *.ckpt
 *.pt
 *.pth
+
+# Unrelated script
+test.*
+RandomColor.py
+**/reference_code

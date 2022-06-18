@@ -5,10 +5,9 @@ matplotlib
 pandas
 torch
 torchvision
-ipython
+jupyter
 pillow
 opencv-python
-sklearn
 scikit-learn
 nltk
-pycuda
+seaborn

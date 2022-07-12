@@ -20,7 +20,7 @@ learning_rate = 2e-4
 latent_dim = 2 ** 8
 
 
-train_dataset = datasets.MNIST(root='../data',
+train_dataset = datasets.MNIST(root='../../data',
                                train=True,
                                transform=transforms.ToTensor(),
                                download=True)

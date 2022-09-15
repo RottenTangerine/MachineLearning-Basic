@@ -8,8 +8,8 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 
-from discriminator import Discriminator
-from generator import Generator
+from Models.GAN.discriminator import Discriminator
+from Models.GAN.generator import Generator
 
 os.makedirs("images", exist_ok=True)
 img_shape = (1, 28, 28)

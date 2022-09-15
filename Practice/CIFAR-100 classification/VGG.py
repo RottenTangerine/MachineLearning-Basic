@@ -10,7 +10,7 @@ test_dataset = torchvision.datasets.CIFAR100(root='../../data', train=False, dow
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # hyper parameters
-epoch_num = 20
+epoch_num = 50
 batch_size = 16
 learning_rate = 0.01
 class_num = 100

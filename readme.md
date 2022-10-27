@@ -11,9 +11,9 @@ Please feel free to visit and have fun :)
 **Basic tools:**
 
 ![](https://img.shields.io/badge/numpy-3083D1)
-![](https://img.shields.io/badge/pandas-7A5A87)
+![](https://img.shields.io/badge/pandas-7A5AB7)
 ![](https://img.shields.io/badge/open--cv-5055CA)
-![](https://img.shields.io/badge/icecream-5962F5)
+![](https://img.shields.io/badge/icecream-79B2F5)
 
 **Visualization:**
 
@@ -23,23 +23,35 @@ Please feel free to visit and have fun :)
 **Framework and tools:**
 
 ![](https://img.shields.io/badge/pytorch-E2492D)
-![](https://img.shields.io/badge/sklearn-6B51E1)
+![](https://img.shields.io/badge/torchvision-E2492D)
+![](https://img.shields.io/badge/sklearn-DB51E1)
 
 
 ## Outline
 
-- ### Basic
+- ### Basic (traditional AI and utils)
   - Clustering
   - Beyes
-- ### CNN (Convolutional Neural Network)
-- ### RNN (Recurrent Neural Network)
+  
+- ### Models
+
+  - Basic_Conv (CBR)
+  - Basic_ResidualBlock
+  - CTPN
+  - RNN
+  - UNet
+  - VGG
+
 - ### CV (Computer Version)
   - OpenCV Basic
   - Histogram
+  
 - ### Small Practice Projects
+
   - Text Categorization
   - Disease diagnosis
   - Coupon usage prediction
   - CIFAR-10
   - Emotion Detection
+
 - ### Toy Algorithms

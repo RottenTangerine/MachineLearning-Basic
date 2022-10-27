@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from Basic_Conv import BasicConv
 
 
 class VGG(nn.Module):
@@ -11,10 +12,10 @@ class VGG(nn.Module):
         in_channels = 3
         for v in cfg:
             if v == 'M':
-                layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
+                layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
             # CBR
             else:
-                layers += [nn.Conv2d(in_channels, v, 3, padding=1), nn.BatchNorm2d(v), nn.ReLU(True)]
+                layers.append(BasicConv(in_channels, v, 3, padding=1, bn=True, activate=True))
                 in_channels = v
 
         self.features = nn.Sequential(*layers)

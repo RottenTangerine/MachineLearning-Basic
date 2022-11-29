@@ -31,22 +31,16 @@ class CNN(nn.Module):
             nn.LeakyReLU(0.2, True),
         )
 
-        self.layer5 = nn.Sequential(
-            nn.Conv2d(512, 512, kernel_size=4, stride=2, padding=1),
-            nn.InstanceNorm2d(256),
-            nn.LeakyReLU(0.2, True),
-        )
-
-        self.layer6 = nn.Sequential(
-            nn.Conv2d(512, 1, kernel_size=3, stride=1, padding=0),
-            nn.Softmax()
-        )
+        self.average_pool = nn.AdaptiveAvgPool2d(1)
+        self.linear = nn.Linear(512, class_num)
+        self.output = nn.Softmax()
 
     def forward(self, x):
         out = self.layer1(x)
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
-        out = self.layer5(out)
-        out = self.layer6(out)
-        return out
+        out = self.average_pool(out)
+        out = out.reshape(out.size(0), -1)
+        out = self.linear(out)
+        return self.output(out)

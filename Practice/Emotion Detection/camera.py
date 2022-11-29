@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from model import CNN
 
 idx_to_class = ['angry', 'disgusted', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
